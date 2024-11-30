@@ -1,0 +1,37 @@
+import time
+import network
+
+ssid='your wifi name'
+password='your wifi password'
+
+wlan=network.WLAN(network.STA_IF)
+wlan.active(True)
+
+wlan.connect(ssid, password)
+
+#wait for wifi to connect or fail
+
+max_wait=10
+while max_wait>0:
+        if wlan.status() <0 or wlan.status() >=3:
+            break
+        max_wait-=1
+        print('waiting for connection...')
+        time.sleep(1)
+        
+
+print('Wlan Status: ',wlan.status())
+
+
+#This code can detect all the available wifi with in range
+#print('Avaialbe Networks',wlan.scan())     #use this as an alternate
+
+wifilist=wlan.scan()
+print('Avaialable Wifi's with in range of the device')
+for x in wifilist:
+    print(x)
+    #wifituple=tuple((x))
+    #print(wifituple(0))
+
+    
+    
